@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { dongAnLakeCase } from "../../data/cases";
@@ -28,6 +29,11 @@ export default function DongAnLakeCasePage() {
           <p className="case-responsibility">{dongAnLakeCase.responsibility}</p>
         </div>
       </section>
+
+      <figure className="case-hero-figure">
+        <Image src="/images/dongan-lake/vehicle-operation.jpg" alt="东安湖项目观光车日常运营场景" width={4096} height={3072} priority sizes="(max-width: 680px) calc(100vw - 32px), 720px" />
+        <figcaption>项目观光车日常运营场景</figcaption>
+      </figure>
 
       <section className="case-results-section">
         <div className="container">
@@ -60,6 +66,10 @@ export default function DongAnLakeCasePage() {
             ))}
           </div>
         </div>
+        <figure className="case-inline-figure case-vehicle-figure">
+          <Image src="/images/dongan-lake/hero.jpg" alt="东安湖湖畔建筑与日落景观" width={1440} height={2160} sizes="(max-width: 680px) calc(100vw - 32px), 470px" />
+          <figcaption>东安湖项目所在区域景观</figcaption>
+        </figure>
       </section>
 
       <section className="case-section case-section-surface">
@@ -98,6 +108,10 @@ export default function DongAnLakeCasePage() {
               <div key={stage}><span>0{index + 1}</span><h3>{stage}</h3><p>{copy}</p></div>
             ))}
           </div>
+          <figure className="case-inline-figure case-event-figure">
+            <Image src="/images/dongan-lake/concert-support.jpg" alt="大型活动保障期间的项目车辆运营现场" width={1896} height={1280} sizes="(max-width: 680px) calc(100vw - 32px), 720px" />
+            <figcaption>大型活动保障期间的项目车辆运营现场</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -112,6 +126,10 @@ export default function DongAnLakeCasePage() {
               <div key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p></div>
             ))}
           </div>
+          <figure className="case-inline-figure case-team-figure">
+            <Image src="/images/dongan-lake/team-operation.jpg" alt="项目现场运营与游客服务场景" width={4096} height={3072} sizes="(max-width: 680px) calc(100vw - 32px), 720px" />
+            <figcaption>项目现场运营与游客服务场景</figcaption>
+          </figure>
           <p className="case-closing">建立自动驾驶观光车在智慧文旅场景中的商业化运营路径，并为后续区域项目复制提供运营模型基础。</p>
         </div>
       </section>
