@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { dongAnLakeCase } from "./data/cases";
 import {
   Activity,
   ArrowDownRight,
@@ -50,10 +51,6 @@ const metrics = [
 const capabilitySteps = ["经营目标", "经营分析", "资源配置", "现场运营", "AI协同", "经营复盘"];
 
 const caseData = {
-  dongAnLake: {
-    description: "统筹商业化运营、车辆资产、团队组织、线路服务、大型活动保障与经营结果。",
-    metrics: [["530万+", "代表年度项目收入"], ["1300万+", "项目历史累计收入"], ["70+场", "万人级演唱会保障"], ["40台", "当前观光车项目规模"]],
-  },
   locals: {
     description: "负责成都区域业务开拓与经营管理，建立供给、上线、履约、入住服务与异常处理机制。",
     metrics: [["100+", "运营房源"], ["5000万+", "管理资产规模"], ["从0到1", "区域业务搭建"], ["全流程", "供给与入住服务体系"]],
@@ -171,9 +168,10 @@ export default function Home() {
             <FadeIn className="case-primary">
               <div className="case-topline"><span>CASE 01</span><span className="case-tags">智慧文旅 · 智能交通 · 商业化运营</span></div>
               <h3>东安湖智慧文旅<br />交通项目</h3>
-              <p>{caseData.dongAnLake.description}</p>
-              <div className="case-metrics primary-metrics">{caseData.dongAnLake.metrics.map(([value, label]) => <div key={label}><b>{value}</b><span>{label}</span></div>)}</div>
+              <p>{dongAnLakeCase.homepageDescription}</p>
+              <div className="case-metrics primary-metrics">{dongAnLakeCase.homepageMetrics.map(([value, label]) => <div key={label}><b>{value}</b><span>{label}</span></div>)}</div>
               <div className="case-line"><span>商业化运营</span><i /><span>大型活动保障</span></div>
+              <a className="case-link" href="/cases/dongan-lake">查看完整案例 <ArrowRight size={16} /></a>
             </FadeIn>
             <FadeIn className="case-secondary">
               <div className="case-topline"><span>CASE 02</span><Route size={18} /></div>

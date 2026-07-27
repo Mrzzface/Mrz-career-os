@@ -1,0 +1,124 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { dongAnLakeCase } from "../../data/cases";
+
+export const metadata: Metadata = {
+  title: "东安湖智慧文旅交通项目｜LEO ZHOU",
+  description: "东安湖智慧文旅交通项目：从技术示范到商业化运营的经营与运营实践。",
+};
+
+export default function DongAnLakeCasePage() {
+  return (
+    <main className="case-page">
+      <header className="case-header">
+        <div className="container case-nav">
+          <Link className="brand" href="/" aria-label="返回首页">
+            <span>LEO</span> ZHOU <small>OPERATIONS &amp; COMMERCIAL GROWTH</small>
+          </Link>
+          <Link className="case-back" href="/"><ArrowLeft size={16} />返回首页</Link>
+        </div>
+      </header>
+
+      <section className="case-hero section-grid">
+        <div className="container">
+          <span className="eyebrow">CASE 01 · 智慧文旅 · 智能交通</span>
+          <p className="case-positioning">{dongAnLakeCase.positioning}</p>
+          <h1>{dongAnLakeCase.name}</h1>
+          <p className="case-responsibility">{dongAnLakeCase.responsibility}</p>
+        </div>
+      </section>
+
+      <section className="case-results-section">
+        <div className="container">
+          <div className="case-section-intro">
+            <span className="eyebrow">BUSINESS RESULTS</span>
+            <h2>核心经营结果</h2>
+          </div>
+          <div className="case-results-grid">
+            {dongAnLakeCase.results.map(([value, label, priority], index) => (
+              <div className={`case-result case-result-${priority}`} key={label}>
+                <span>0{index + 1}</span><strong>{value}</strong><p>{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="case-section">
+        <div className="container case-split-layout">
+          <div className="case-section-intro">
+            <span className="eyebrow">PROJECT COMPLEXITY</span>
+            <h2>项目管理复杂度<br />持续提升</h2>
+            <p>项目的挑战不止于扩大规模，而是让车辆、团队与现场能力同步承接更复杂的经营场景。</p>
+          </div>
+          <div className="complexity-list">
+            {dongAnLakeCase.complexity.map(([name, start, end]) => (
+              <div className="complexity-row" key={name}>
+                <span>{name}</span><b>{start}</b><ArrowRight size={16} /><strong>{end}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="case-section case-section-surface">
+        <div className="container">
+          <div className="case-section-intro">
+            <span className="eyebrow">KEY DECISIONS</span>
+            <h2>关键经营决策</h2>
+            <p>持续解决经营模式、资源效率与组织能力问题，而非停留在单一现场执行。</p>
+          </div>
+          <div className="decision-list">
+            {dongAnLakeCase.decisions.map(([from, to, copy], index) => (
+              <article className="decision-row" key={from}>
+                <span>0{index + 1}</span>
+                <h3>{from}<ArrowRight size={18} />{to}</h3>
+                <p>{copy}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="case-section">
+        <div className="container">
+          <div className="case-section-intro">
+            <span className="eyebrow">OPERATING MECHANISM</span>
+            <h2>运营与大型活动机制</h2>
+            <p>安全管理贯穿资源配置、现场运营与复盘优化，不公开具体调度规则和应急细节。</p>
+          </div>
+          <div className="operating-loop">
+            {dongAnLakeCase.operatingLoop.map((item, index) => (
+              <div key={item}><span>0{index + 1}</span><b>{item}</b>{index < dongAnLakeCase.operatingLoop.length - 1 ? <ArrowRight size={16} /> : null}</div>
+            ))}
+          </div>
+          <div className="event-stages">
+            {dongAnLakeCase.eventStages.map(([stage, copy], index) => (
+              <div key={stage}><span>0{index + 1}</span><h3>{stage}</h3><p>{copy}</p></div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="case-section case-section-surface case-capability-section">
+        <div className="container">
+          <div className="case-section-intro">
+            <span className="eyebrow">CAPABILITY OUTCOME</span>
+            <h2>结果与能力沉淀</h2>
+          </div>
+          <div className="capability-list">
+            {dongAnLakeCase.capabilities.map(([title, copy], index) => (
+              <div key={title}><span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p></div>
+            ))}
+          </div>
+          <p className="case-closing">建立自动驾驶观光车在智慧文旅场景中的商业化运营路径，并为后续区域项目复制提供运营模型基础。</p>
+        </div>
+      </section>
+
+      <footer className="case-footer">
+        <div className="container"><span>东安湖智慧文旅交通项目</span><Link href="/">返回首页 <ArrowRight size={15} /></Link></div>
+      </footer>
+    </main>
+  );
+}
