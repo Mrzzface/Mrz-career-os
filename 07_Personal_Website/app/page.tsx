@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { dongAnLakeCase } from "./data/cases";
 import {
   Activity,
@@ -48,6 +48,13 @@ const metrics = [
   ["多车型", "观光车与漫游车运营", "base"],
 ];
 
+const projectImages = [
+  { src: "/images/dongan-lake/vehicle-operation.jpg", alt: "东安湖智慧文旅交通项目车辆运营现场" },
+  { src: "/images/dongan-lake/concert-support.jpg", alt: "东安湖项目大型活动运营保障现场" },
+  { src: "/images/dongan-lake/team-operation.jpg", alt: "东安湖项目团队运营现场" },
+  { src: "/images/dongan-lake/hero.jpg", alt: "东安湖智慧文旅交通项目现场" },
+] as const;
+
 const caseData = {
   locals: {
     description: "负责成都区域业务开拓与经营管理，建立供给、上线、履约、入住服务与异常处理机制。",
@@ -69,21 +76,23 @@ const timeline = [
   ["当前", "AI驱动运营管理与职业资产建设"],
 ];
 
-function FadeIn({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function FadeIn({ children, className = "", immediate = false }: { children: React.ReactNode; className?: string; immediate?: boolean }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
       className={className}
-      initial={false}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={reduceMotion || immediate ? false : { opacity: 0, y: 20 }}
+      whileInView={immediate ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.22, ease: "easeOut" }}
+      transition={{ duration: 0.32, ease: "easeOut" }}
     >
       {children}
     </motion.div>
   );
 }
 
-function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: string; copy?: string }) {
+function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: React.ReactNode; copy?: string }) {
   return (
     <div className="section-heading">
       <span className="eyebrow">{eyebrow}</span>
@@ -95,6 +104,17 @@ function SectionHeading({ eyebrow, title, copy }: { eyebrow: string; title: stri
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeProjectImage, setActiveProjectImage] = useState(0);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
+
+    const rotation = window.setInterval(() => {
+      setActiveProjectImage((current) => (current + 1) % projectImages.length);
+    }, 5000);
+
+    return () => window.clearInterval(rotation);
+  }, []);
 
   return (
     <main className="home-page">
@@ -108,7 +128,7 @@ export default function Home() {
               <a key={href} href={href}>{label}</a>
             ))}
           </nav>
-          <a className="nav-cta" href="#contact">查看简历 <ArrowDownRight size={16} /></a>
+          <a className="nav-cta" href="#contact">下载简历 <ArrowDownRight size={16} /></a>
           <button
             className="menu-toggle"
             type="button"
@@ -124,16 +144,16 @@ export default function Home() {
             {navItems.map(([label, href]) => (
               <a key={href} href={href} onClick={() => setMenuOpen(false)}>{label}<ChevronRight size={16} /></a>
             ))}
-            <a href="#contact" onClick={() => setMenuOpen(false)}>查看简历<ArrowDownRight size={16} /></a>
+            <a href="#contact" onClick={() => setMenuOpen(false)}>下载简历<ArrowDownRight size={16} /></a>
           </nav>
         ) : null}
       </header>
 
       <section id="top" className="hero">
         <div className="container hero-layout">
-          <FadeIn className="hero-copy">
-            <span className="eyebrow"><span className="status-dot" />运营与商业化负责人 <i>· AI-Driven Operations</i></span>
-            <h1>让复杂业务场景<br /><em>变成可持续经营结果</em></h1>
+          <FadeIn className="hero-copy" immediate>
+            <span className="eyebrow"><span className="status-dot" />智慧文旅 · 智能交通 · 商业化运营</span>
+            <h1>让复杂运营场景<br /><em>转化为持续经营能力</em></h1>
             <div className="hero-intro">{profile.hero.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
             <div className="hero-actions">
               <a className="button button-primary" href="#cases">查看代表案例 <ArrowRight size={17} /></a>
@@ -141,20 +161,33 @@ export default function Home() {
             </div>
           </FadeIn>
 
-          <FadeIn className="hero-project-visual">
+          <FadeIn className="hero-project-visual" immediate>
             <figure>
-              <Image
-                src="/images/dongan-lake/vehicle-operation.jpg"
-                alt="东安湖智慧文旅交通项目车辆运营现场"
-                width={1200}
-                height={900}
-                priority
-                sizes="(max-width: 960px) 100vw, 42vw"
-              />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={projectImages[activeProjectImage].src}
+                  className="hero-project-image"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.38, ease: "easeOut" }}
+                >
+                  <Image
+                    src={projectImages[activeProjectImage].src}
+                    alt={projectImages[activeProjectImage].alt}
+                    fill
+                    priority={activeProjectImage === 0}
+                    sizes="(max-width: 960px) 100vw, 42vw"
+                  />
+                </motion.div>
+              </AnimatePresence>
             </figure>
             <div className="hero-project-caption">
               <p>东安湖智慧文旅交通项目</p>
               <span>商业化运营</span><i /> <span>40台车辆</span><i /> <span>1300万+累计收入</span>
+            </div>
+            <div className="hero-project-pagination" aria-label="项目图片轮播进度">
+              {projectImages.map((image, index) => <span key={image.src} className={index === activeProjectImage ? "is-active" : ""} />)}
             </div>
           </FadeIn>
         </div>
@@ -203,13 +236,13 @@ export default function Home() {
               </FadeIn>
             ))}
           </div>
-          <FadeIn className="system-caption"><span>目标设定</span><i /><span>资源配置</span><i /><span>现场决策</span><i /><span>结果追踪</span><i /><span>组织复盘</span></FadeIn>
+          <FadeIn className="system-caption"><span>经营目标</span><i /><span>资源配置</span><i /><span>现场运营</span><i /><span>数据复盘</span></FadeIn>
         </div>
       </section>
 
       <section id="ai" className="section ai-section">
         <div className="container ai-layout">
-          <FadeIn><SectionHeading eyebrow="AI实践" title="AI不是替代管理者，<br />而是提高整理、分析、表达和知识沉淀效率" copy="运营负责人保留判断、决策、协调和负责。" /></FadeIn>
+          <FadeIn><SectionHeading eyebrow="AI实践" title="AI增强运营能力" copy="AI用于提升信息整理、经营分析、内容表达和知识沉淀效率。AI辅助判断，运营负责人仍然负责决策与结果。" /></FadeIn>
           <FadeIn className="ai-workflow">
             <div className="ai-flow"><div><span>01</span><b>真实业务<br />信息</b></div><ArrowRight size={17} /><div><span>02</span><b>AI整理与<br />结构化</b></div><ArrowRight size={17} /><div><span>03</span><b>负责人判断<br />与审核</b></div><ArrowRight size={17} /><div><span>04</span><b>报告、制度<br />与知识沉淀</b></div></div>
             <div className="ai-applications"><span><BarChart3 size={17} />AI经营报告</span><span><ClipboardCheck size={17} />AI制度与SOP</span><span><Github size={17} />Codex + GitHub Career OS</span></div>
@@ -228,8 +261,8 @@ export default function Home() {
 
       <section id="contact" className="contact-section">
         <div className="container contact-box">
-          <FadeIn><span className="eyebrow">联系</span><h2>讨论项目运营、商业化增长<br />与AI管理实践</h2><p>{profile.contactLine}</p></FadeIn>
-          <FadeIn className="contact-details"><a href="https://github.com/Mrzzface" target="_blank" rel="noreferrer"><Github size={19} /><span>GitHub</span><b>Mrzzface</b><ArrowUpRight /></a><div><MapPin size={19} /><span>城市</span><b>成都</b></div><div><ChevronRight size={19} /><span>邮箱</span><b>邮箱待补充</b></div><div><ChevronRight size={19} /><span>微信</span><b>微信待补充</b></div></FadeIn>
+          <FadeIn><span className="eyebrow">职业合作入口</span><h2>讨论项目运营、商业化增长<br />与AI管理实践</h2><p>{profile.contactLine}</p></FadeIn>
+          <FadeIn className="contact-details"><a href="https://github.com/Mrzzface" target="_blank" rel="noreferrer"><Github size={19} /><span>GitHub</span><b>Mrzzface</b><ArrowUpRight /></a><div><MapPin size={19} /><span>城市</span><b>成都</b></div><a href="mailto:mrzzjob@163.com"><ChevronRight size={19} /><span>邮箱</span><b>mrzzjob@163.com</b><ArrowUpRight /></a><div><ChevronRight size={19} /><span>微信</span><b>Mrz27315</b></div></FadeIn>
         </div>
       </section>
 
