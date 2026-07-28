@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { dongAnLakeCase } from "./data/cases";
 import {
@@ -14,7 +15,6 @@ import {
   ChevronRight,
   CircleDollarSign,
   ClipboardCheck,
-  Compass,
   Github,
   MapPin,
   Menu,
@@ -40,15 +40,13 @@ const profile = {
 };
 
 const metrics = [
-  ["15年", "运营与项目管理经验", "base"],
   ["2200万+", "累计管理项目收入", "primary"],
   ["160万+", "累计服务游客", "secondary"],
-  ["70+场", "万人级演唱会运营保障", "secondary"],
-  ["多车型", "观光车 + 漫游车项目运营", "base"],
+  ["70+场", "万人级活动运营保障", "secondary"],
+  ["15年", "运营与项目管理经验", "base"],
   ["30+", "团队管理规模", "base"],
+  ["多车型", "观光车与漫游车运营", "base"],
 ];
-
-const capabilitySteps = ["经营目标", "经营分析", "资源配置", "现场运营", "AI协同", "经营复盘"];
 
 const caseData = {
   locals: {
@@ -99,11 +97,11 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <main>
+    <main className="home-page">
       <header className="site-header">
         <div className="container nav-shell">
           <a className="brand" href="#top" aria-label="回到页面顶部">
-            <span>LEO</span> ZHOU <small>OPERATIONS &amp; COMMERCIAL GROWTH</small>
+            <span>LEO</span> ZHOU <small>智慧文旅 · 智能交通 · 商业化运营</small>
           </a>
           <nav className="desktop-nav" aria-label="主导航">
             {navItems.map(([label, href]) => (
@@ -131,11 +129,11 @@ export default function Home() {
         ) : null}
       </header>
 
-      <section id="top" className="hero section-grid">
+      <section id="top" className="hero">
         <div className="container hero-layout">
           <FadeIn className="hero-copy">
-            <span className="eyebrow"><span className="status-dot" />运营与商业化负责人 · AI-Driven Operations</span>
-            <h1>让复杂项目变得<br /><em>可经营、可复制、</em><br />可持续增长</h1>
+            <span className="eyebrow"><span className="status-dot" />运营与商业化负责人 <i>· AI-Driven Operations</i></span>
+            <h1>让复杂业务场景<br /><em>变成可持续经营结果</em></h1>
             <div className="hero-intro">{profile.hero.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
             <div className="hero-actions">
               <a className="button button-primary" href="#cases">查看代表案例 <ArrowRight size={17} /></a>
@@ -143,10 +141,21 @@ export default function Home() {
             </div>
           </FadeIn>
 
-          <FadeIn className="capability-visual">
-            <div className="visual-header"><span>MANAGEMENT LOOP</span><span className="visual-live"><i />ACTIVE</span></div>
-            <div className="visual-flow"><div className="core-node"><Compass size={24} /><span>经营<br />中枢</span></div>{capabilitySteps.map((step, index) => <div className="flow-node" key={step}><span>0{index + 1}</span><b>{step}</b></div>)}</div>
-            <div className="visual-footer"><span>目标</span><span>决策</span><span>复盘</span></div>
+          <FadeIn className="hero-project-visual">
+            <figure>
+              <Image
+                src="/images/dongan-lake/vehicle-operation.jpg"
+                alt="东安湖智慧文旅交通项目车辆运营现场"
+                width={1200}
+                height={900}
+                priority
+                sizes="(max-width: 960px) 100vw, 42vw"
+              />
+            </figure>
+            <div className="hero-project-caption">
+              <p>东安湖智慧文旅交通项目</p>
+              <span>商业化运营</span><i /> <span>40台车辆</span><i /> <span>1300万+累计收入</span>
+            </div>
           </FadeIn>
         </div>
       </section>
@@ -163,10 +172,10 @@ export default function Home() {
 
       <section id="cases" className="section cases-section">
         <div className="container">
-          <FadeIn><SectionHeading eyebrow="SELECTED CASES" title="代表项目与经营实践" copy="真实数据与明确管理范围，呈现商业化运营和区域业务增长实践。" /></FadeIn>
+          <FadeIn><SectionHeading eyebrow="代表案例" title="代表项目与经营实践" copy="以经营结果、管理范围与可复用机制，判断运营能力的真实边界。" /></FadeIn>
           <div className="case-layout">
             <FadeIn className="case-primary">
-              <div className="case-topline"><span>CASE 01</span><span className="case-tags">智慧文旅 · 智能交通 · 商业化运营</span></div>
+              <div className="case-topline"><span>项目 01</span><span className="case-tags">智慧文旅 · 智能交通 · 商业化运营</span></div>
               <h3>东安湖智慧文旅<br />交通项目</h3>
               <p>{dongAnLakeCase.homepageDescription}</p>
               <div className="case-metrics primary-metrics">{dongAnLakeCase.homepageMetrics.map(([value, label]) => <div key={label}><b>{value}</b><span>{label}</span></div>)}</div>
@@ -174,7 +183,7 @@ export default function Home() {
               <a className="case-link" href="/cases/dongan-lake">查看完整案例 <ArrowRight size={16} /></a>
             </FadeIn>
             <FadeIn className="case-secondary">
-              <div className="case-topline"><span>CASE 02</span><Route size={18} /></div>
+              <div className="case-topline"><span>项目 02</span><Route size={18} /></div>
               <span className="case-tags">区域经营 · 从0到1 · 业务增长</span>
               <h3>北京路客<br />成都区域业务</h3>
               <p>{caseData.locals.description}</p>
@@ -186,7 +195,7 @@ export default function Home() {
 
       <section id="system" className="section system-section">
         <div className="container">
-          <FadeIn><SectionHeading eyebrow="OPERATING SYSTEM" title="将复杂运营转化为清晰的管理机制" /></FadeIn>
+          <FadeIn><SectionHeading eyebrow="运营体系" title="将复杂运营转化为清晰的管理机制" /></FadeIn>
           <div className="system-flow">
             {systemItems.map(([number, title, copy, Icon], index) => (
               <FadeIn className="system-item" key={title}>
@@ -200,7 +209,7 @@ export default function Home() {
 
       <section id="ai" className="section ai-section">
         <div className="container ai-layout">
-          <FadeIn><SectionHeading eyebrow="AI IN PRACTICE" title="AI不是替代管理者，<br />而是提高整理、分析、表达和知识沉淀效率" copy="运营负责人保留判断、决策、协调和负责。" /></FadeIn>
+          <FadeIn><SectionHeading eyebrow="AI实践" title="AI不是替代管理者，<br />而是提高整理、分析、表达和知识沉淀效率" copy="运营负责人保留判断、决策、协调和负责。" /></FadeIn>
           <FadeIn className="ai-workflow">
             <div className="ai-flow"><div><span>01</span><b>真实业务<br />信息</b></div><ArrowRight size={17} /><div><span>02</span><b>AI整理与<br />结构化</b></div><ArrowRight size={17} /><div><span>03</span><b>负责人判断<br />与审核</b></div><ArrowRight size={17} /><div><span>04</span><b>报告、制度<br />与知识沉淀</b></div></div>
             <div className="ai-applications"><span><BarChart3 size={17} />AI经营报告</span><span><ClipboardCheck size={17} />AI制度与SOP</span><span><Github size={17} />Codex + GitHub Career OS</span></div>
@@ -210,7 +219,7 @@ export default function Home() {
 
       <section id="career" className="section career-section">
         <div className="container">
-          <FadeIn><SectionHeading eyebrow="CAREER PATH" title="从区域业务增长到复杂项目经营" /></FadeIn>
+          <FadeIn><SectionHeading eyebrow="职业经历" title="从区域业务增长到复杂项目经营" /></FadeIn>
           <div className="timeline">
             {timeline.map(([period, title], index) => <FadeIn className="timeline-item" key={period}><span className="timeline-dot" /><small>{period}</small><h3>{title}</h3><span className="timeline-order">0{index + 1}</span></FadeIn>)}
           </div>
@@ -219,7 +228,7 @@ export default function Home() {
 
       <section id="contact" className="contact-section">
         <div className="container contact-box">
-          <FadeIn><span className="eyebrow">CONTACT</span><h2>讨论项目运营、商业化增长<br />与AI管理实践</h2><p>{profile.contactLine}</p></FadeIn>
+          <FadeIn><span className="eyebrow">联系</span><h2>讨论项目运营、商业化增长<br />与AI管理实践</h2><p>{profile.contactLine}</p></FadeIn>
           <FadeIn className="contact-details"><a href="https://github.com/Mrzzface" target="_blank" rel="noreferrer"><Github size={19} /><span>GitHub</span><b>Mrzzface</b><ArrowUpRight /></a><div><MapPin size={19} /><span>城市</span><b>成都</b></div><div><ChevronRight size={19} /><span>邮箱</span><b>邮箱待补充</b></div><div><ChevronRight size={19} /><span>微信</span><b>微信待补充</b></div></FadeIn>
         </div>
       </section>
