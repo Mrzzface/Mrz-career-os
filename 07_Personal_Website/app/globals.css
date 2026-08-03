@@ -204,6 +204,11 @@ main { overflow: clip; }
 .hero-project-pagination span { width: 16px; height: 2px; background: #cfd6d8; transition: width 220ms ease, background-color 220ms ease; }
 .hero-project-pagination .is-active { width: 30px; background: var(--accent); }
 
+.case-fleet-figure {
+  width: min(760px, 100%);
+  margin: 54px auto 0;
+}
+
 .metrics-section { background: var(--surface-soft); }
 .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
 .metric {

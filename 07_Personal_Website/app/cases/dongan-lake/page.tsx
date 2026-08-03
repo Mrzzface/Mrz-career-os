@@ -102,6 +102,10 @@ export default function DongAnLakeCasePage() {
           <div className="challenge-list">
             {challenges.map(([number, title]) => <article key={number}><span>{number}</span><h3>{title}</h3></article>)}
           </div>
+          <figure className="case-inline-figure case-fleet-figure">
+            <Image src="/images/dongan-lake/fleet-operation.jpg" alt="东安湖项目多车辆运营现场" width={4096} height={3072} sizes="(max-width: 780px) calc(100vw - 40px), 760px" />
+            <figcaption>东安湖项目多车辆运营现场</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -141,8 +145,8 @@ export default function DongAnLakeCasePage() {
             </div>
           </div>
           <figure className="case-inline-figure case-event-figure">
-            <Image src="/images/dongan-lake/concert-support.jpg" alt="东安湖项目大型活动运营保障现场" width={1896} height={1280} sizes="(max-width: 780px) calc(100vw - 40px), 42vw" />
-            <figcaption>大型活动期间的项目运营保障现场</figcaption>
+            <Image src="/images/dongan-lake/night-operation.jpg" alt="东安湖项目夜间运营现场" width={1000} height={750} sizes="(max-width: 780px) calc(100vw - 40px), 42vw" />
+            <figcaption>项目夜间运营现场</figcaption>
           </figure>
         </div>
       </section>

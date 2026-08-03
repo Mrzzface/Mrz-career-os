@@ -50,9 +50,11 @@ const metrics = [
 
 const projectImages = [
   { src: "/images/dongan-lake/vehicle-operation.jpg", alt: "东安湖智慧文旅交通项目车辆运营现场" },
-  { src: "/images/dongan-lake/concert-support.jpg", alt: "东安湖项目大型活动运营保障现场" },
-  { src: "/images/dongan-lake/team-operation.jpg", alt: "东安湖项目团队运营现场" },
-  { src: "/images/dongan-lake/hero.jpg", alt: "东安湖智慧文旅交通项目现场" },
+  { src: "/images/dongan-lake/fleet-operation.jpg", alt: "东安湖项目多车辆运营现场" },
+  { src: "/images/dongan-lake/night-operation.jpg", alt: "东安湖项目夜间运营现场" },
+  { src: "/images/dongan-lake/landmark-operation.jpg", alt: "东安湖智慧文旅交通项目景区运营现场" },
+  { src: "/images/dongan-lake/daily-operation.jpg", alt: "东安湖项目日常车辆运营现场" },
+  { src: "/images/dongan-lake/route-operation.jpg", alt: "东安湖项目线路运营现场" },
 ] as const;
 
 const caseData = {
